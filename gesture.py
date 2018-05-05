@@ -182,7 +182,28 @@ def gesturenumbers():
                         cv2.FONT_HERSHEY_SIMPLEX, 2, 2)
         #cv2.imshow('drawing', drawing)
         #cv2.imshow('end', crop_img)
+        # cv2.imshow('Gesture', img)
+
+        lab= cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+
+
+        #-----Splitting the LAB image to different channels-------------------------
+        l, a, b = cv2.split(lab)
+
+
+        #-----Applying CLAHE to L-channel-------------------------------------------
+        clahe = cv2.createCLAHE(clipLimit=6.0, tileGridSize=(10,10))
+        cl = clahe.apply(l)
+
+
+        #-----Merge the CLAHE enhanced L-channel with the a and b channel-----------
+        limg = cv2.merge((cl,a,b))
+
+        #-----Converting image from LAB Color model to RGB model--------------------
+        img = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
         cv2.imshow('Gesture', img)
+
+
         all_img = np.hstack((drawing, crop_img))
         # cv2.imshow('Contours', all_img)
 
@@ -298,7 +319,27 @@ def gesturewords():
                         cv2.FONT_HERSHEY_SIMPLEX, 2, 2)
         #cv2.imshow('drawing', drawing)
         #cv2.imshow('end', crop_img)
+        # cv2.imshow('Gesture', img)
+
+        lab= cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
+
+
+#-----Splitting the LAB image to different channels-------------------------
+        l, a, b = cv2.split(lab)
+
+
+#-----Applying CLAHE to L-channel-------------------------------------------
+        clahe = cv2.createCLAHE(clipLimit=6.0, tileGridSize=(10,10))
+        cl = clahe.apply(l)
+
+
+#-----Merge the CLAHE enhanced L-channel with the a and b channel-----------
+        limg = cv2.merge((cl,a,b))
+
+#-----Converting image from LAB Color model to RGB model--------------------
+        img = cv2.cvtColor(limg, cv2.COLOR_LAB2BGR)
         cv2.imshow('Gesture', img)
+
         all_img = np.hstack((drawing, crop_img))
         # cv2.imshow('Contours', all_img)
 
